@@ -23,7 +23,7 @@ class GithubOrgStats
     week_start_day = today - today.wday - (week * 7)
     github_week_ts = (week_start_day.to_time + 9*60*60).to_i
     user_stats = @client.contributors_stats(repo_id)
-    return [] if user_stats.nil?
+    return [] if user_stats.nil? || user_stats.empty?
     stats = user_stats.map do |user_stat|
       commits = user_stat[:weeks].find{|us| us[:w] == github_week_ts}[:c]
       user_name = user_stat[:author][:login]
